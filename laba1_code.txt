@@ -1,0 +1,58 @@
+#include <iostream>
+#include <stdio.h>
+using namespace std;
+int main()
+{
+	int x, y, z;
+	cout << "Enter x:" << endl;
+	cin >> x;
+	cout << "Enter y:" << endl;
+	cin >> y;
+	cout << "Enter z:" << endl;
+	cin >> z;
+	if ((x !=  1) && (x !=  0))
+	{
+		cout << "Please enter 0 or 1" << endl;
+	}
+     if ((y !=  1) && (y !=  0))
+	{
+		cout << "Please enter 0 or 1" << endl;
+	}
+	 if ((z != 1) && (z != 0))
+	{
+		cout << "Please enter 0 or 1" << endl;
+	}
+	  if ((x == 0) && (y == 0) && (z == 0))
+	{
+		cout << "Result of function is: 1" << endl;
+	}
+	  if ((x == 0) && (y == 0) && (z == 1))
+	{
+		cout << "Result of function is: 1" << endl;
+	}
+	 if ((x == 0) && (y == 1) && (z == 0))
+	{
+		cout << "Result of function is: 1" << endl;
+	}
+	 if ((x == 0) && (y == 1) && (z == 1))
+	{
+		cout << "Result of function is: 1" << endl;
+	}
+	 if ((x == 1) && (y == 0) && (z == 0))
+	{
+		cout << "Result of function is: 1" << endl;
+	}
+	 if ((x == 1) && (y == 0) && (z == 1))
+	{
+		cout << "Result of function is: 1" << endl;
+	}
+	 if ((x == 1) && (y == 1) && (z == 0))
+	{
+		cout << "Result of function is: 1" << endl;
+	}
+	 if ((x == 1) && (y == 1) && (z == 1))
+	{
+		cout << "Result of function is: 0" << endl;
+	}
+	
+}
