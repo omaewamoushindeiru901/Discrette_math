@@ -1,0 +1,137 @@
+omae wa mou shindeiru, [22.10.19 23:10]
+#include <iostream>
+#include <math.h>
+using namespace std;
+int main()
+{
+  int n;
+  cout << "Enter the size of arrays" << endl;
+  cin >> n;
+
+  int* arr1 = new int[n];
+  for (int i = 0; i < n; i++)
+  {
+    cout << "Enter " << i << " element of first array" << endl;
+    cin >> arr1[i];
+  }
+
+  int* arr2 = new int[n];
+    for (int i = 0; i < n; i++)
+    {
+      cout << "Enter " << i << " element of second array" << endl;
+      cin >> arr2[i];
+    }
+  
+    int** matr = new int*[n]; 
+    for (int i = 0; i < n; i++)
+    {
+      matr[i] = new int[n];
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+      for (int j = 0; j < n; j++)
+      {
+        if ((5 * arr1[i] - arr2[j]) > 3)
+        {
+          matr[i][j] = 1;
+        }
+        else
+        {
+          matr[i][j] = 0;
+        }
+      }
+    }
+      
+    cout << "The matrix is:" << endl;
+    for (int i = 0; i < n; i++)
+    {
+      for (int j = 0; j < n; j++)
+      {
+        cout << matr[i][j]<<" ";
+      }
+      cout << endl;
+    }
+
+    cout << "Relation is:" << endl;
+
+    int refl = 0;
+    for (int i = 0; i < n; i++)
+    {
+      if (matr[i][i] == 1)
+      {
+        refl++;
+      }
+    }
+    if (refl == n)
+    {
+      cout << " reflexive" << endl;
+    }
+    else if (refl < n && refl>0)
+    {
+      cout << " not reflexive" << endl;
+    }
+    else if (refl == 0)
+    {
+      cout << " antireflexive" << endl;
+    }
+
+    int symm = 0;
+    for (int i = 0; i < n; i++)
+    {
+      for (int j = 0; j < n; j++)
+      {
+        if (matr[i][j] == matr[j][i])
+        {
+          symm++;
+        }
+      }
+    }
+    if (symm == pow(n, 2))
+    {
+      cout << " symmetric" << endl;
+    }
+    else if (symm<pow(n, 2) && symm>n)
+    {
+      cout << " not symmetric" << endl;
+    }
+    else if (symm == n)
+    {
+      cout << " antisymmetric" << endl;
+    }
+
+    int a = 1, b = 1;
+    for (int i = 0; i <n; i++)
+    {
+      for (int j = 0; j < n; j++)
+      {
+        for (int k = 0; k < n; k++)
+        {
+          if (i != j && j != k && i != k)
+          {
+            if (matr[i][j] == 1 && matr[j][k] == 1 && matr[i][k] == 0)
+            {
+              a = 0;
+            }
+            else if (matr[i][j] == 1 && matr[j][k] == 1 && matr[i][k] == 1)
+            {
+              b = 0;
+            }
+          }
+        }
+      }
+    }
+    if (a == 1)
+    {
+      cout << " tranzitive" << endl;
+    }
+    else if (b == 1)
+    {
+      cout << " antitranzitive" << endl;
+    }
+    else
+    {
+      cout << " not tranzitive" << endl;
+    }
+    return 0;
+}
