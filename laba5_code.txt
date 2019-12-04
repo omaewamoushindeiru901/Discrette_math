@@ -1,0 +1,127 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <fstream>
+#include <cstring>
+#include <cstdio>
+#include<sstream>
+using namespace std;
+
+const int number = 30;
+const int mwei = 1000;
+
+struct vershuna
+{
+	int weight = mwei;
+	int from = 0;
+	bool fixed = false;
+};
+
+int main()
+{
+	int matrix[number][number];
+	string rebro;
+	char rebroch[100];
+	char* rch;
+	vershuna ver[number];
+	ver[0].weight = 0;
+	ver[0].fixed = true;
+	int currver = 0;
+	for (int i = 0; i < number; i++)
+	{
+		for (int j = 0; j < number; j++)
+		{
+			matrix[i][j] = 0;                        //zanululu matrix
+		}
+	}
+	int i = 0; int j = 0; int row = 0;
+	fstream file;
+	file.open("MATRIX.txt", ios_base::in);               // zapus iz file
+	while (getline(file, rebro))
+	{
+		strcpy(rebroch, rebro.c_str());
+		char* rch = strtok(rebroch, " ");
+		while (rch != NULL)
+		{
+			if (row % 2 == 0)
+			{
+				matrix[i][i + 1] = (int)*rch - 48;
+				matrix[i + 1][i] = (int)*rch - 48;
+				i++;
+			}
+			else
+			{
+				matrix[j][j + 6] = (int)*rch - 48;
+				matrix[j + 6][j] = (int)*rch - 48;
+				j++;
+			}
+			rch = strtok(NULL, " ");
+		}
+		row++;
+		if (row % 2 == 0)i++;
+	}
+	for (int i = 0; i < number; i++)
+	{
+		for (int j = 0; j < number; j++)
+		{
+			cout << matrix[i][j] << "  ";   //druk matrix
+		}
+		cout << endl;
+	}
+	//alhoritm d
+	
+	while (ver[number - 1].fixed != true)
+	{             
+		int conected[number - 1];
+		int index = 0;                   //find sumizhni vershunu dlya currver
+		for (int i = 0; i < number; i++)
+		{
+			if (matrix[currver][i] != 0)
+			{
+				conected[index] = i;
+				index++;
+			}
+		}
+
+		for (int i = 0; i < index; i++)         //dlya sumizhnuch  ver find vaha
+		{
+			if ((ver[currver].weight + matrix[currver][conected[i]]) < ver[conected[i]].weight)
+			{
+				ver[conected[i]].weight = ver[currver].weight + matrix[currver][conected[i]];
+				ver[conected[i]].from = currver;
+			}
+		}
+
+		int min = mwei;  //znach ver iz min vaha i fix ii
+		int ind = 0;
+		for (int i = 0; i < number; i++)
+		{
+			if ((ver[i].weight < min) && (ver[i].fixed != true))
+			{
+				min = ver[i].weight;
+				ind = i;
+			}
+			ver[ind].fixed = true;
+			currver = ind; //prodovzh itu po ver z min vahoyu
+		}
+	}
+	//druk
+	int track[number];
+	int trindex = 0;
+	currver = number - 1;
+	track[trindex] = currver;
+	trindex++;
+	while (currver > 0)
+	{
+		track[trindex] = ver[currver].from;
+		trindex++;
+		currver = ver[currver].from;
+	}
+	cout << "\nMin track(" << ver[number - 1].weight << "): ";
+	for (int i = trindex - 1; i >= 0; i--)
+	{
+		cout << track[i] + 1;
+		if (i != 0)cout << "-";
+		else cout << endl;
+	}
+	file.close();
+}
