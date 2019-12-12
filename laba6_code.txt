@@ -1,0 +1,62 @@
+#include <iostream>
+using namespace std;
+
+int fact(int a);
+void binom(int a);
+
+int main()
+{
+	int value, counter, temp;
+
+	cout << "Enter the value of elements to sort: ";
+	cin >> value;
+	int* elem = new int[value];
+	cout << "Enter elements: ";
+	for (int i = 0; i < value; i++)
+	{
+		cin >> elem[i];
+	}
+	while (true)
+	{
+		counter = 0;
+		for (int i = 0; i < value - 1; i++)
+		{
+			if (elem[i] > elem[i + 1])
+			{
+				temp = elem[i];
+				elem[i] = elem[i + 1];
+				elem[i + 1] = temp;
+				counter++;
+			}
+		}
+		if (counter == 0) break;
+	}
+	for (int i = 0; i < value; i++)
+	{
+		cout << i + 1 << "). ";
+		cout << elem[i] << endl;
+	}
+
+	binom(8);
+}
+
+int fact(int a)
+{
+	int fact = 1;
+	for (int i = 1; i <= a; i++)
+	{
+		fact *= i;
+	}
+	return fact;
+}
+
+void binom(int a)
+{
+	cout << "Newton`s binominal:  ";
+	cout << "(x + y)^8 = x^" << a;
+	for (int i = 1; i < a; i++)
+	{
+		cout << " + " << fact(a) / (fact(i) * fact(a - i)) << "x^" << a - i << " *y^" << i;
+	}
+	cout << " + y^" << a << endl;
+}
